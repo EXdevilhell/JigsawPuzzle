@@ -49,7 +49,7 @@ Jigsaw.prototype = {
         let width = this.backstage.width/x
         let height = this.backstage.height/y       
         let gamebox = document.createElement('div')
-        let num = 1
+        let num = 0
         for(let i=0; i<y;i++){
             for(let j=0; j<x;j++){
                 let newChip = document.createElement('canvas')
@@ -57,7 +57,7 @@ Jigsaw.prototype = {
                 newChip.width = width
                 newChip.height = height
                 newChip.classList.add('chips')
-                newChip.setAttribute('box-id',i+'-'+j)
+                newChip.setAttribute('box-id',num)
                 newChip.setAttribute('order',num++)
                 ctx.drawImage(this.backstage,j*width,i*height,width,height,0,0,width,height)
                 gamebox.appendChild(newChip)
@@ -69,6 +69,7 @@ Jigsaw.prototype = {
         this.mainBox.appendChild(gamebox)
     }
     ,_switchChips:function(box_id1,box_id2){
+        const that = this;
         let canvas_a = document.querySelector('[box-id="'+box_id1+'"]')
         let canvas_b = document.querySelector('[box-id="'+box_id2+'"]')
         if(!canvas_a||!canvas_b) return '目标错误';
@@ -85,27 +86,12 @@ Jigsaw.prototype = {
         
         let order_a = canvas_a.getAttribute('order')
         let order_b = canvas_b.getAttribute('order')
-        /*动画方向*/
-        const direction = (function(){
-            const num_a = box_id1.split('-')
-            const num_b = box_id2.split('-')        
-            if(num_a[0] == num_b[0]){
-                if(num_a[1] < num_b[1])  return 'right';
-                if(num_a[1] > num_b[1])  return 'left';
-            }
-            else if(num_a[1] == num_b[1]){
-                if(num_a[0] > num_b[0]) return 'up';
-                if(num_a[0] < num_b[0]) return 'down';
-            }
-            else 
-                return 'other';
-        })()
+      
         const ctx_a = canvas_a.getContext('2d')
         const ctx_b = canvas_b.getContext('2d')
-        
-       
-         switch(direction){
-            case 'right':{                
+          /*动画方向*/
+         switch(box_id1 - box_id2){
+            case -1:{                
                     let x = 0
                     let timer = setInterval(function(){
                     ctx_b.clearRect(0,0,canvas_b.width,canvas_b.height)
@@ -120,7 +106,7 @@ Jigsaw.prototype = {
                 },1);
                 
             }break;
-             case 'left':{
+             case 1:{
                  let x = 0
                  let timer = setInterval(function(){
                     ctx_b.clearRect(0,0,canvas_b.width,canvas_b.height)
@@ -134,7 +120,7 @@ Jigsaw.prototype = {
                      }
                  })
              }break;
-             case 'up':{
+             case that.level[1]:{
                  let y = 0
                  let timer = setInterval(function(){
                     ctx_b.clearRect(0,0,canvas_b.width,canvas_b.height)
@@ -148,7 +134,7 @@ Jigsaw.prototype = {
                      }
                  })
              }break;
-             case 'down':{
+             case -that.level[1]:{
                  let y = 0
                  let timer = setInterval(function(){
                     ctx_b.clearRect(0,0,canvas_b.width,canvas_b.height)
