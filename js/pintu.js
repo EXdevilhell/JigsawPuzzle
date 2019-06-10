@@ -264,6 +264,7 @@ Jigsaw.prototype = {
                         sourceId = e.target.getAttribute('box-id')
                         that._switchChips(sourceId,targetId)
                         that._setTarget(sourceId)
+                        that._checkWin()
                     }
                 },false)
             }
