@@ -1,0 +1,142 @@
+@charset:"utf-8";
+body{
+    margin: 0;
+    overflow-x: hidden;
+    background-image: url(../icon/background.jpg);
+}
+h1{
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
+    height: 1.5em;
+    background-image: url(../icon/head.png);
+    background-size: contain;
+}
+.btn-menu{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    height: 3em;
+    width: 3em;
+    background-image:url(../icon/set.png);
+    background-size: cover;
+    margin: 5px;
+}
+.btn-menu:hover{
+    background-image: url(../icon/set.gif)
+}
+section{/*菜单*/
+    transition:margin 0.5s;
+    height: 20em;
+    border: solid #888;    
+    border-radius: 50px;
+    margin: 0.5em 1.5%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    background: rgba(255,255,255,.7);
+}
+#btn-menu/*checkbox*/
+,.box-level + .box-level + .box-level{
+    display: none;
+}
+#btn-menu:checked~section{
+    visibility: hidden;
+    margin: -10em 0;
+    transition:margin 1s;
+}
+#btn-image {
+    display: none;
+}
+label[for="btn-image"]{
+    width: 100%;
+    cursor: pointer;
+}
+.box-level,
+.box-level+div{
+   width: 100%;
+    margin: 5px;
+}
+.box-level+div{
+    margin-top: 0.5em;
+    font-family:fantasy;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.input-level{
+    width: 4em;
+}
+.img{
+    max-width: 95%;
+    min-width: 50%;
+    max-height: inherit;
+    margin: 0 auto;
+}
+main{
+    max-width: 100%;
+    min-height: 25em;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.gamebox{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.chips{
+    margin: 1px;
+}
+
+.on-over{
+    background: rgba(0,255,120,0.3)
+}
+[spinStyle]{
+    transition:transform 0.2s;
+    cursor:pointer;
+}
+[spinStyle='0']{
+    transform:rotate(360deg);
+}
+[spinStyle='1']{
+    transform:rotate(90deg);
+}
+[spinStyle='2']{
+    transform:rotate(180deg);
+}
+[spinStyle='3']{
+    transform:rotate(270deg);
+}
+.source{
+    cursor: move;
+}
+.target[spinStyle]{
+    transform:rotate(360deg);
+}
+@media(min-width:1024px){
+    section{        
+        visibility: visible;
+        float: right;
+        width: 15%;
+        transition:margin 1s;        
+    }
+    #btn-menu:checked~section{
+        visibility: hidden;
+        transition:margin 1s;
+        margin: 0 -16% 0 12%;
+    }
+    .box-level + .box-level + .box-level{
+        display: block;
+    }
+    main{
+        float: right;
+        width: 80%;
+    }
+    
+}
+
+.none{
+    display: none;
+}
