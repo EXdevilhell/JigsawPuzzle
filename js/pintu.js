@@ -350,13 +350,14 @@ Jigsaw.prototype = {
     
 };
 
-var game = new Jigsaw({
+
+
+{
+    let game = new Jigsaw({
                 boxId:"gameBox",
                 img:"mainImg",
                 imgInput:"btn-image"
             });
-
-(function(){
     game.init()   
     document.getElementById('btn-start').addEventListener('click',function(){
         game.init()
@@ -376,4 +377,4 @@ var game = new Jigsaw({
         }
         else(alert('试着选个正常的难度...'))
     },false)
-})()
+}

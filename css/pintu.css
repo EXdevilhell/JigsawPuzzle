@@ -114,6 +114,7 @@ main{
 }
 .target[spinStyle]{
     transform:rotate(360deg);
+    cursor: none;
 }
 @media(min-width:1024px){
     section{        
