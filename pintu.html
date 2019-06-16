@@ -10,7 +10,18 @@
 1. 能够支持 WebKit 内核和另外任意一种非 WebKit 内核的浏览器。
 2. 不使用任何三方 JavaScript 类库，包括，但不限于 jQuery。
 3. 不推荐界面元素使用绝对布局。
-4. 界面美观。-->
+4. 界面美观。
+****************************分隔线***************************************************
+特性描述：基于canvas的拼图游戏，响应式布局，至少兼容chrome、firefox。
+
+上传自定义的图片，指定难度，宽屏幕下使用鼠标拖拽拼图，如果勾选了旋转，图块获得一个随机旋转角度同时获得点击选择的事件。
+
+移动设备宽度下使用事件移动拼图、且隐藏了添加旋转的按钮
+
+宽屏幕下可以选择让图块获得一个随机旋转角度增加难度
+
+github: https://exdevilhell.github.io/JigsawPuzzle/pintu.html
+-->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -44,6 +55,7 @@
     <main role="main" id="gameBox">
          <img id="mainImg" class="img" src="icon/banner.png" alt="上传图片开始游戏" >
     </main>
-    <script src="js/pintu.js"></script>        
+    <script src="js/pintu.js"></script>   
+    <script src="js/index.js"></script>  
 </body>
 </html>

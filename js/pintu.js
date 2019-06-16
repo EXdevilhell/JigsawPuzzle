@@ -1,3 +1,4 @@
+
 /*
  *Jigsaw()
   参数{
@@ -5,15 +6,13 @@
     img:'主预览图id'，//最终用于裁剪的图像尺寸与数据来自主预览图，主预览图和主容器需要适当的css配合
     level:[行数,列数]
  }
- * init()初始化，根据屏幕大小设定主图尺寸、绑定图片上传的事件
- *_getData()在图片上传之后调用，获取图片和尺寸给canvas
- * creatChip() 根据难度创建相应碎片并写入，隐藏主图
- * _switchChips(box-id1,box-id2) 交换两个碎片，如果是相邻的有动画效果，参数是数字或者字符串
- * _setTarget（box-id），将指定碎片设定为目标，只允许这个碎片周围的碎片向这个碎片移动，参数是数字或者字符串
- * initChip（）将最后一个碎片图像清空，并设定为目标。为所有碎片绑定移动事件（pc端拖拽、移动端点击）。
- * spinStaff() 给所有碎片引入随机旋转和点击旋转事件,默认移动端没有此选项
- * _checkWin() 检查是否满足胜利条件
- * setPuzzle() 打乱拼图
+ mainBox： 主容器元素
+ img： 主图元素
+ imgInput：上传图片的 input 元素
+ levlel:难度[行数,列数]
+ backstage:虚拟 canvas 元素
+    ctx ：backstage 的上下文对象
+ 
 */
 function Jigsaw(a){
     this.mainBox = document.getElementById(a.boxId)
@@ -24,6 +23,18 @@ function Jigsaw(a){
     this.backstage = document.createElement('canvas')
     this.ctx = this.backstage.getContext('2d')
 };
+/*Jigsaw()
+ *方法列表
+ * init()删除已经存在的碎片，显示主图（this.img），根据屏幕大小设定主图尺寸、绑定图片上传的事件
+ *_getData()获取主图及其尺寸给 this.backstage（虚拟canvas元素 ）
+ * creatChip() 根据难度(this.level)裁剪图片并创建相应碎片，隐藏主图
+ * _switchChips(box-id1,box-id2，？true) 交换两个碎片，如果是相邻的有动画效果，参数是数字或者字符串。可选参数3如果传入true，或其他可转化的值，就取消此次动画效果。
+ * _setTarget（box-id），将指定碎片设定为目标，只允许这个碎片周围的碎片向这个碎片移动，参数是数字或者字符串。
+ * initChip（）将最后一个碎片图像清空，并设定为目标（_setTarget（box-id））。为所有碎片绑定移动事件（pc端拖拽、移动端点击）。
+ * spinStaff() 给所有碎片引入初始的随机旋转和点击旋转事件
+ * _checkWin() 检查是否满足胜利条件
+ * setPuzzle() 随机打乱拼图
+*/
 Jigsaw.prototype = {
     init:function(){     
         let that = this
@@ -38,9 +49,9 @@ Jigsaw.prototype = {
             let reader = new FileReader();
             reader.readAsDataURL(img); //  base64
             reader.onloadend = function () {
-                that.img.src = reader.result;
-        };           
-     };    
+                that.img.src = reader.result
+        }           
+     }    
     }
     ,_getData:function(){
         this.backstage.height = this.img.height
@@ -352,29 +363,3 @@ Jigsaw.prototype = {
 
 
 
-{
-    let game = new Jigsaw({
-                boxId:"gameBox",
-                img:"mainImg",
-                imgInput:"btn-image"
-            });
-    game.init()   
-    document.getElementById('btn-start').addEventListener('click',function(){
-        game.init()
-        let y = parseInt(document.getElementById('yNum').value);
-        document.getElementById('yNum').value = y;
-        let x = parseInt(document.getElementById('xNum').value);
-        document.getElementById('xNum').value = x;        
-        if(x>=2&y>=2&x*y<=100){
-            game.level=[x,y]
-            game.creatChip()
-            game.initChip()
-            if(document.getElementById('spin').checked){
-                game.spinStaff()
-            }
-            game.setPuzzle()
-            document.getElementById('btn-menu').checked=true
-        }
-        else(alert('试着选个正常的难度...'))
-    },false)
-}
